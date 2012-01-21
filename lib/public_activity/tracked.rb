@@ -133,43 +133,43 @@ module PublicActivity
     
     # A module with shortcut method for setting own parameters to the {Activity} model
     module InstanceMethods
-    # A shortcut method for setting custom key, owner and parameters of {Activity}
-    # in one line. Accepts a hash with 3 keys:
-    # :key, :actor, :params. You can specify all of them or just the ones you want to overwrite.
-    #
-    # === Options
-    #
-    # [:key]
-    #   Accepts a string that will be used as a i18n key for {Activity#text} method.
-    # [:actor]
-    #   Specify the owner of the {Activity} (person responsible for the action).
-    #   It can be a Proc, Symbol or an ActiveRecord object:
-    #   == Examples:
-    #    @article.activity :actor => :author    
-    #    @article.activity :actor => {|o| o.author}
-    #    @article.activity :actor => User.where(:login => 'piotrek').first
-    #   Keep in mind that actor relation is polymorphic, so you can't just provide id number of the owner object.
-    # [:params]
-    #   Accepts a Hash with custom parameters you want to pass to i18n.translate
-    #   method. It is later used in {Activity#text} method.
-    #   == Example:
-    #    @article.activity :params => {:title => @article.title, :short => truncate(@article.text, :length => 50)}
-    #
-    # == Usage:
-    # In model:
-    #
-    #   class Article < ActiveRecord::Base
-    #     tracked
-    #   end 
-    #
-    # In controller:
-    #
-    #   @article = Article.new
-    #   @article.title = "New article"    
-    #   @article.activity :key => "my.custom.article.key", :actor => @article.author, :params => {:title => @article.title}
-    #   @article.save
-    #   @article.activities.last.key #=> "my.custom.article.key"
-    #   @article.activities.last.parameters #=> {:title => "New article"}
+      # A shortcut method for setting custom key, actor and parameters of {Activity}
+      # in one line. Accepts a hash with 3 keys:
+      # :key, :actor, :params. You can specify all of them or just the ones you want to overwrite.
+      #
+      # === Options
+      #
+      # [:key]
+      #   Accepts a string that will be used as a i18n key for {Activity#text} method.
+      # [:actor]
+      #   Specify the owner of the {Activity} (person responsible for the action).
+      #   It can be a Proc, Symbol or an ActiveRecord object:
+      #   == Examples:
+      #    @article.activity :actor => :author
+      #    @article.activity :actor => {|o| o.author}
+      #    @article.activity :actor => User.where(:login => 'piotrek').first
+      #   Keep in mind that actor relation is polymorphic, so you can't just provide id number of the owner object.
+      # [:params]
+      #   Accepts a Hash with custom parameters you want to pass to i18n.translate
+      #   method. It is later used in {Activity#text} method.
+      #   == Example:
+      #    @article.activity :params => {:title => @article.title, :short => truncate(@article.text, :length => 50)}
+      #
+      # == Usage:
+      # In model:
+      #
+      #   class Article < ActiveRecord::Base
+      #     tracked
+      #   end
+      #
+      # In controller:
+      #
+      #   @article = Article.new
+      #   @article.title = "New article"
+      #   @article.activity :key => "my.custom.article.key", :actor => @article.author, :params => {:title => @article.title}
+      #   @article.save
+      #   @article.activities.last.key #=> "my.custom.article.key"
+      #   @article.activities.last.parameters #=> {:title => "New article"}
       def activity(options = {}) 
         self.activity_key = options[:key] if options[:key]      
         self.activity_actor = options[:actor] if options[:actor]
