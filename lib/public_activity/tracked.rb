@@ -86,7 +86,7 @@ module PublicActivity
       #   Accepts a Hash with custom parameters you want to pass to i18n.translate
       #   method. It is later used in {Activity#text} method.
       #   == Example:
-      #    @article.activity :parameters => {:title => @article.title, :short => truncate(@article.text, :length => 50)}
+      #    @article.activity :params => {:title => @article.title, :short => truncate(@article.text, :length => 50)}
       #   Everything specified here has a lower priority than parameters specified directly in {Tracked::InstanceMethods#activity} method.
       #   So treat it as a place where you provide 'default' values.
       #   For more dynamic settings refer to {Activity} model 
