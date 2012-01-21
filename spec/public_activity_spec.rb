@@ -23,18 +23,18 @@ describe "public_activity" do
         @category = Category.create(:name => "test cat")
       end
   
-      it "should have a nil owner" do
+      it "should have a nil actor" do
         activity = PublicActivity::Activity.last
-        activity.owner.should be_nil
+        activity.actor.should be_nil
       end
   
-      it "should have an owner" do
+      it "should have an actor" do
         department = Department.create(:name => "test dept")
-        @category.activity_owner = department
+        @category.activity_actor = department
         @category.save
     
         activity = PublicActivity::Activity.last
-        activity.owner.should_not be_nil
+        activity.actor.should_not be_nil
       end
       
       it "should have activites" do
@@ -99,12 +99,12 @@ describe "public_activity" do
     end
   end
   
-  describe "activist" do
+  describe "actor" do
     
     before(:each) do
       @category = Category.create(:name => "test cat")
       @department = Department.create(:name => "test dept")
-      @category.activity_owner = @department
+      @category.activity_actor = @department
       @category.save
     end
     

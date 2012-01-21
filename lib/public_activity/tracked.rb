@@ -4,8 +4,8 @@ module PublicActivity
     extend ActiveSupport::Concern
     
     included do
-      class_attribute :activity_owner_global, :activity_params_global
-      self.activity_owner_global = nil
+      class_attribute :activity_actor_global, :activity_params_global
+      self.activity_actor_global = nil
       self.activity_params_global = {}
     end  
     # Set or get parameters that will be passed to {Activity} when saving
@@ -36,13 +36,13 @@ module PublicActivity
     # Controller:
     #
     #   @article = Article.new
-    #   @article.activity_owner = current_user # where current_user is an object of logged in user
-    #   @article.activity_owner = :author # OR: take @article.author attribute
-    #   @article.activity_owner = proc {|o| o.author } # OR: provide a Proc with custom code
+    #   @article.activity_actor = current_user # where current_user is an object of logged in user
+    #   @article.activity_actor = :author # OR: take @article.author attribute
+    #   @article.activity_actor = proc {|o| o.author } # OR: provide a Proc with custom code
     #   @article.save
     #   @article.activities.last.owner #=> Returns owner object
-    attr_accessor :activity_owner
-    @activity_owner = nil
+    attr_accessor :activity_actor
+    @activity_actor = nil
     # Set or get custom i18n key passed to {Activity}, later used in {Activity#text}
     #
     # == Usage:
@@ -74,13 +74,13 @@ module PublicActivity
       # associated activities.
       # 
       # == Parameters:
-      # [:owner]
+      # [:actor]
       #   Specify the owner of the {Activity} (person responsible for the action).
       #   It can be a Proc, Symbol or an ActiveRecord object:
       #   == Examples:
-      #    @article.activity :owner => :author    
-      #    @article.activity :owner => {|o| o.author}
-      #    @article.activity :owner => User.where(:login => 'piotrek').first
+      #    @article.activity :actor => :author    
+      #    @article.activity :actor => {|o| o.author}
+      #    @article.activity :actor => User.where(:login => 'piotrek').first
       #   Keep in mind that owner relation is polymorphic, so you can't just provide id number of the owner object.
       # [:params]
       #   Accepts a Hash with custom parameters you want to pass to i18n.translate
@@ -121,8 +121,8 @@ module PublicActivity
             end
         end
             
-        if options[:owner]
-          self.activity_owner_global = options[:owner]
+        if options[:actor]
+          self.activity_actor_global = options[:actor]
         end
         if options[:params]
           self.activity_params_global = options[:params]
@@ -135,25 +135,25 @@ module PublicActivity
     module InstanceMethods
     # A shortcut method for setting custom key, owner and parameters of {Activity}
     # in one line. Accepts a hash with 3 keys:
-    # :key, :owner, :params. You can specify all of them or just the ones you want to overwrite.
+    # :key, :actor, :params. You can specify all of them or just the ones you want to overwrite.
     #
     # === Options
     #
     # [:key]
     #   Accepts a string that will be used as a i18n key for {Activity#text} method.
-    # [:owner]
+    # [:actor]
     #   Specify the owner of the {Activity} (person responsible for the action).
     #   It can be a Proc, Symbol or an ActiveRecord object:
     #   == Examples:
-    #    @article.activity :owner => :author    
-    #    @article.activity :owner => {|o| o.author}
-    #    @article.activity :owner => User.where(:login => 'piotrek').first
-    #   Keep in mind that owner relation is polymorphic, so you can't just provide id number of the owner object.
+    #    @article.activity :actor => :author    
+    #    @article.activity :actor => {|o| o.author}
+    #    @article.activity :actor => User.where(:login => 'piotrek').first
+    #   Keep in mind that actor relation is polymorphic, so you can't just provide id number of the owner object.
     # [:params]
     #   Accepts a Hash with custom parameters you want to pass to i18n.translate
     #   method. It is later used in {Activity#text} method.
     #   == Example:
-    #    @article.activity :parameters => {:title => @article.title, :short => truncate(@article.text, :length => 50)}
+    #    @article.activity :params => {:title => @article.title, :short => truncate(@article.text, :length => 50)}
     #
     # == Usage:
     # In model:
@@ -166,13 +166,13 @@ module PublicActivity
     #
     #   @article = Article.new
     #   @article.title = "New article"    
-    #   @article.activity :key => "my.custom.article.key", :owner => @article.author, :params => {:title => @article.title}
+    #   @article.activity :key => "my.custom.article.key", :actor => @article.author, :params => {:title => @article.title}
     #   @article.save
     #   @article.activities.last.key #=> "my.custom.article.key"
     #   @article.activities.last.parameters #=> {:title => "New article"}
       def activity(options = {}) 
         self.activity_key = options[:key] if options[:key]      
-        self.activity_owner = options[:owner] if options[:owner]
+        self.activity_actor = options[:actor] if options[:actor]
         self.activity_params = options[:params] if options[:params]
       end
     end

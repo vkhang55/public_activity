@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table :activities, :force => true do |t|
       t.integer  :trackable_id
       t.string   :trackable_type
-      t.integer  :owner_id
-      t.string   :owner_type
+      t.integer  :actor_id
+      t.string   :actor_type
       t.string   :key
       t.text     :parameters
       t.datetime :created_at

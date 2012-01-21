@@ -1,6 +1,6 @@
 class Department < ActiveRecord::Base
   tracked(:except => [:create])
-  activist
+  acts_as_actor
 end
 
 class Category < ActiveRecord::Base

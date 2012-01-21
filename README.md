@@ -29,7 +29,7 @@ Add 'tracked' to the model you want to keep track of:
       tracked
     end
 
-To default the owner to the current user (optional)
+To default the actor to the current user (optional)
     
     #Aplication Controller
     before_filter :define_current_user

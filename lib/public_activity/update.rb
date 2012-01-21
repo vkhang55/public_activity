@@ -12,7 +12,7 @@ module PublicActivity
         # Creates activity upon modification of the tracked model
         def activity_on_update
           settings = prepare_settings
-          create_activity(settings[:key] || "activity."+self.class.name.parameterize('_')+".update", settings[:owner], settings[:parameters])
+          create_activity(settings[:key] || "activity."+self.class.name.parameterize('_')+".update", settings[:actor], settings[:parameters])
         end
     end
   end

@@ -38,7 +38,7 @@ require 'pusher'
 module PublicActivity
   extend ActiveSupport::Concern
   extend ActiveSupport::Autoload
-  autoload :Activist
+  autoload :Actor
   autoload :Activity
   autoload :Tracked
   autoload :Creation
@@ -49,7 +49,7 @@ module PublicActivity
   
   included do
     include Tracked
-    include Activist 
+    include Actor
   end  
 end
 

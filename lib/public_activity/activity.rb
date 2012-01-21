@@ -7,7 +7,7 @@ module PublicActivity
     # Define polymorphic association to the parent
     belongs_to :trackable, :polymorphic => true
     # Define ownership to a resource responsible for this activity
-    belongs_to :owner, :polymorphic => true
+    belongs_to :actor, :polymorphic => true
     # Serialize parameters Hash
     serialize :parameters, Hash
     
