@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name = 'public_activity'
   s.version = PublicActivity::VERSION
   s.platform = Gem::Platform::RUBY
-  s.authors = ["Piotrek Okoński", "Kuba Okoński"]
+  s.authors = ["Piotrek Okoński"]
   s.email = "piotrek@okonski.org"
   s.homepage = 'https://github.com/pokonski/public_activity'
   s.summary = "Smooth activity tracking for ActiveRecord models"
