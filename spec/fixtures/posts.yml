@@ -1,0 +1,9 @@
+post1:
+  id: 1
+  title: "Receiving Email with Mailman"
+  body: "The Mailman gem makes it easy to receive email in a Rails application. Here I show how to write a script to run Mailman in its own process and pull down mail from a POP3 account."
+
+post2:
+  id: 2
+  title: "Pretty URLs with FriendlyId"
+  body: "If you are tired of model ids in the URL, overriding to_param can only get you so far. The friendly_id plugin can help by making it easy to generate a URL slug and maintain a history."

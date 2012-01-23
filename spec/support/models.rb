@@ -1,14 +1,13 @@
-class Department < ActiveRecord::Base
-  tracked(:except => [:create])
+class User < ActiveRecord::Base
+  extend PublicActivity::Actor
   acts_as_actor
 end
 
-class Category < ActiveRecord::Base
-  tracked(:only =>  [:create, :update, :destroy])
-  validates_presence_of :name
+class Post < ActiveRecord::Base
+  validates_presence_of :title
+  validates_presence_of :body
 end
 
-class Note < ActiveRecord::Base
-  tracked(:only =>  [:update])
-  belongs_to :category
+class Comment < ActiveRecord::Base
+  belongs_to :post
 end

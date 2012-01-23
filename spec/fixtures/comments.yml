@@ -1,0 +1,14 @@
+comment1:
+  id: 1
+  body: "Somebody knows if this is also compatible with CouchRest Model? (Couchdb)"
+  post_id: 2
+
+comment2:
+  id: 2
+  body: "Very interesting idea. I can see this being useful on user models with an email address or user name. Does friendly_id assume the name column is unique?"
+  post_id: 2
+
+comment2:
+  id: 3
+  body: "Does not seem to work in production like this (I'm precompiling the assets)."
+  post_id: 1

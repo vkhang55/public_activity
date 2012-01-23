@@ -1,16 +1,17 @@
 ActiveRecord::Schema.define(:version => 0) do
 
-  create_table :categories, :force => true do |t|
+  create_table :users, :force => true do |t|
     t.column :name, :string
   end
 
-  create_table :departments, :force => true do |t|
-    t.column :name, :string
-  end
-
-  create_table :notes, :force => true do |t|
+  create_table :posts, :force => true do |t|
     t.column :body, :text
-    t.column :category_id, :integer
+    t.column :title, :string
+  end
+
+  create_table :comments, :force => true do |t|
+    t.column :body, :text
+    t.column :post_id, :integer
   end
   
   create_table :activities, :force => true do |t|
@@ -18,10 +19,11 @@ ActiveRecord::Schema.define(:version => 0) do
       t.string   :trackable_type
       t.integer  :actor_id
       t.string   :actor_type
+      t.integer  :recipient_id
+      t.string   :recipient_type
       t.string   :key
       t.text     :parameters
       t.datetime :created_at
-      t.datetime :updated_at
   end
     
 end
