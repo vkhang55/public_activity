@@ -5,11 +5,13 @@ class CreateActivities < ActiveRecord::Migration
     create_table :activities do |t|
       t.belongs_to :trackable, :polymorphic => true
       t.belongs_to :actor, :polymorphic => true
+      t.belongs_to :recipient, :polymorphic => true
       t.string  :key
       t.text    :parameters
 
-      t.timestamps
+      t.datetime :created_at
     end
+    add_index :activities, :key
   end
   # Drop table
   def self.down
