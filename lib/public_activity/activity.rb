@@ -4,10 +4,13 @@ module PublicActivity
   # The ActiveRecord model containing 
   # details about recorded activity.
   class Activity < ActiveRecord::Base
-    # Define polymorphic association to the parent
+    # Define polymorphic association to the tracked ActiveRecord object
     belongs_to :trackable, :polymorphic => true
-    # Define ownership to a resource responsible for this activity
+    # Define ownership to a resource responsible for this Activity
     belongs_to :actor, :polymorphic => true
+    # Polymorphic association for recipient of the Actvitiy
+    belongs_to :recipient, :polymorphic => true
+
     # Serialize parameters Hash
     serialize :parameters, Hash
     
