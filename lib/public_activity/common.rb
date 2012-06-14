@@ -13,14 +13,14 @@ module PublicActivity
     # [key]
     #   Custom key that will be used as a i18n translation key - *required*
     # [owner]
-    #   Polymorphic relation specifying the owner of this activity (for example, a User who performed this task) - *optional*
+    #   Polymorphic relation specifying the owner of this activity (for example, a AdminUser who performed this task) - *optional*
     # [params]
     #  Hash with parameters passed directly into i18n.translate method - *optional*
     #
     def create_activity(key, owner = nil, params = {})
 
-      if owner.nil? && ((defined? User) != nil) && User.respond_to?(:current_user)
-        owner = User.current_user
+      if owner.nil? && ((defined? AdminUser) != nil) && AdminUser.respond_to?(:current_user)
+        owner = AdminUser.current_user
       end
 
       activity = self.activities.create(:key => key, :owner => owner, :parameters => params)
@@ -28,6 +28,18 @@ module PublicActivity
         Pusher['activity-channel'].trigger('activity-create', {:key => key, :owner => owner, :parameters => params, :text => activity.text, :object => self})
       end
     end
+
+    # def create_activity(key, owner = nil, params = {})
+
+    #   if owner.nil? && ((defined? User) != nil) && User.respond_to?(:current_user)
+    #     owner = User.current_user
+    #   end
+
+    #   activity = self.activities.create(:key => key, :owner => owner, :parameters => params)
+    #   if !Pusher.app_id.nil? && !Pusher.key.nil? && !Pusher.secret.nil?
+    #     Pusher['activity-channel'].trigger('activity-create', {:key => key, :owner => owner, :parameters => params, :text => activity.text, :object => self})
+    #   end
+    # end
 
     private
       # Prepares settings used during creation of Activity record.
