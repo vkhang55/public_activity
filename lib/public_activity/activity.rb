@@ -8,12 +8,13 @@ module PublicActivity
     belongs_to :trackable, :polymorphic => true
     # Define ownership to a resource responsible for this activity
     belongs_to :owner, :polymorphic => true
+    belongs_to :admin_user, :foreign_key => :owner_id
     # Serialize parameters Hash
     serialize :parameters, Hash
     
     class_attribute :template
 
-    attr_accessible :key, :owner, :parameters
+    attr_accessible :key, :owner, :parameters, :trackable
     # Virtual attribute returning text description of the activity
     # using basic ERB templating
     #
